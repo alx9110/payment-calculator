@@ -1,4 +1,4 @@
-module app
+module github.com/alx9110/payment-calculator
 
 go 1.17
 

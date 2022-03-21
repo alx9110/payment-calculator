@@ -3,9 +3,9 @@
 package controllers
 
 import (
-	"app/models"
 	"net/http"
 
+	"github.com/alx9110/payment-calculator/models"
 	"github.com/gin-gonic/gin"
 )
 

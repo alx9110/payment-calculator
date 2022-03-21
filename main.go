@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	"app/controllers"
-	"app/models"
+	"github.com/alx9110/payment-calculator/controllers"
+	"github.com/alx9110/payment-calculator/models"
 )
 
 func main() {
