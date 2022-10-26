@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/alx9110/payment-calculator/controllers"
 	"github.com/alx9110/payment-calculator/models"
-	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,7 +11,7 @@ func main() {
 	models.ConnectDatabase()
 	r := gin.Default()
 	// Serve frontend static files
-	r.Use(static.Serve("/", static.LocalFile("./web", true)))
+	// r.Use(static.Serve("/", static.LocalFile("./web", true)))
 	// Setup route group for the API
 	api := r.Group("/api")
 	{

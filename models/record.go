@@ -8,6 +8,7 @@ type Record struct {
 	gorm.Model
 	Name  string
 	Value float32
+	Cost  float32
 }
 
 type CreateRecordInput struct {

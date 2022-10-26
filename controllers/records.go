@@ -14,7 +14,6 @@ import (
 func FindRecords(c *gin.Context) {
 	var products []models.Record
 	models.DB.Find(&products)
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 	c.JSON(200, gin.H{
 		"data": products,
 	})
@@ -42,7 +41,18 @@ func CreateRecord(c *gin.Context) {
 	}
 
 	// Create book
-	record := models.Record{Name: input.Name, Value: input.Value}
+	var tax models.Tax
+	if err := models.DB.Where("Name = ?", input.Name).Last(&tax).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Tax not found!"})
+		return
+	}
+	var previous_record models.Record
+	if err := models.DB.Where("Name = ?", input.Name).Last(&previous_record).Error; err != nil {
+		previous_record := models.Record{Name: input.Name, Value: input.Value, Cost: 0}
+		models.DB.Create(&previous_record)
+	}
+	models.DB.Where("Name = ?", input.Name).Last(&previous_record)
+	record := models.Record{Name: input.Name, Value: input.Value, Cost: tax.Value * (input.Value - previous_record.Value)}
 	models.DB.Create(&record)
 
 	c.JSON(http.StatusOK, gin.H{"data": record})
@@ -53,7 +63,6 @@ func CreateRecord(c *gin.Context) {
 func UpdateRecord(c *gin.Context) {
 	// Get model if exist
 	var record models.Record
-	c.Header("Access-Control-Allow-Origin", "*")
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&record).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return

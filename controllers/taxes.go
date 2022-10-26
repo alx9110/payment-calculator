@@ -15,13 +15,13 @@ func FindTaxes(c *gin.Context) {
 	var tax []models.Tax
 	models.DB.Find(&tax)
 	c.JSON(200, gin.H{
-		"message": tax,
+		"data": tax,
 	})
 }
 
 // GET /books/:id
 // Find a book
-func FindTax(c *gin.Context) { // Get model if exist
+func FindTax(c *gin.Context) {
 	var tax models.Tax
 
 	if err := models.DB.Where("ID = ?", c.Param("id")).First(&tax).Error; err != nil {
