@@ -1,1 +1,20 @@
-<p>first works!</p>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Cost</th>
+        <th>CreatedAt</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let r of records.data">
+      <tr>
+        <th>{{r.ID}}</th>
+        <td>{{r.Name}}</td>
+        <td>{{r.Value}}</td>
+        <td>{{r.Cost}}</td>
+        <td>{{r.CreatedAt}}</td>
+      </tr>
+    </tbody>
+  </table>

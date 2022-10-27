@@ -14,6 +14,7 @@ import (
 func FindRecords(c *gin.Context) {
 	var products []models.Record
 	models.DB.Find(&products)
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(200, gin.H{
 		"data": products,
 	})

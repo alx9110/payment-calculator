@@ -14,6 +14,7 @@ import (
 func FindTaxes(c *gin.Context) {
 	var tax []models.Tax
 	models.DB.Find(&tax)
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(200, gin.H{
 		"data": tax,
 	})

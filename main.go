@@ -13,6 +13,8 @@ func main() {
 	// Serve frontend static files
 	// r.Use(static.Serve("/", static.LocalFile("./web", true)))
 	// Setup route group for the API
+	r.SetTrustedProxies([]string{"0.0.0.0"})
+
 	api := r.Group("/api")
 	{
 		// Records

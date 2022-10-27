@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-first',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FirstComponent implements OnInit {
 
-  constructor() { }
+  records: any;
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.apiService.getRecords().subscribe(data => {
+      this.records = data;
+    });
   }
 
 }

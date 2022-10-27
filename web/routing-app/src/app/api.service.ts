@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ApiService {
 
+  API_URL = 'http://localhost:8080/api';
   constructor(private http: HttpClient) { }
 
   getRecords() {
-    return this.http.get<Records>(`http://localhost/api/records/`);
+    // const headers = new HttpHeaders({
+    //   'Access-Control-Allow-Origin': '*',
+    // })
+    return this.http.get(this.API_URL + `/records/`);
   }
 
-}
+  getTaxes() {
+    return this.http.get(this.API_URL + `/taxes/`);
+  }
 
-export interface Records {
-  Id: Uint16Array
-  Name: string;
-  Value: Float32Array;
-  Cost: Float32Array;
 }
