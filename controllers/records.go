@@ -83,7 +83,7 @@ func UpdateRecord(c *gin.Context) {
 
 // DELETE /books/:id
 // Delete a book
-func DeleteProduct(c *gin.Context) {
+func DeleteRecord(c *gin.Context) {
 	// Get model if exist
 	var record models.Record
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&record).Error; err != nil {
