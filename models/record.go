@@ -17,14 +17,12 @@ type Record struct {
 }
 
 type CreateRecordInput struct {
-	HotValue     float32 `json:"hot_value"`
-	HotCost      float32 `json:"hot_cost"`
-	ColdValue    float32 `json:"cold_value"`
-	ColdCost     float32 `json:"cold_cost"`
-	EnergyValue  float32 `json:"energy_value"`
-	EnergyCost   float32 `json:"energy_cost"`
-	DrenageValue float32 `json:"drenage_value"`
-	DrenageCost  float32 `json:"drenage_cost"`
+	HotValue    float32 `json:"hot_value"`
+	HotCost     float32 `json:"hot_cost"`
+	ColdValue   float32 `json:"cold_value"`
+	ColdCost    float32 `json:"cold_cost"`
+	EnergyValue float32 `json:"energy_value"`
+	EnergyCost  float32 `json:"energy_cost"`
 }
 
 type UpdateRecordInput struct {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { faRubleSign } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./first.component.css']
 })
 export class FirstComponent implements OnInit {
-
+  price_icon = faRubleSign;
   records: any;
   constructor(private apiService: ApiService) { }
 
@@ -19,8 +20,9 @@ export class FirstComponent implements OnInit {
 
   deleteRecord(id: number) {
     this.apiService.deleteRecord(id).subscribe(data => {
-    });
-  }
+    })
+  };
+  
 
   ngOnInit(): void {
     this.apiService.getRecords().subscribe(data => {

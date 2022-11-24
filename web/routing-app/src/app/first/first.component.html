@@ -15,8 +15,9 @@
       <th>Электричество (Показания счетчика)</th>
       <th>Электричество (Стоимость)</th>
       <th>Дренаж воды (Показания счетчика)</th>
-      <th>Дренаж воды (Стоимость)</th>    
-      <th>CreatedAt</th>
+      <th>Дренаж воды (Стоимость)</th>
+      <th>Общая стоимость</th>
+      <th>Создано</th>
       <th></th>
     </tr>
   </thead>
@@ -24,13 +25,14 @@
     <tr>
       <th>{{r.ID}}</th>
       <td>{{r.HotValue}}</td>
-      <td>{{r.HotCost}}</td>
+      <td><b>{{r.HotCost}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
       <td>{{r.ColdValue}}</td>
-      <td>{{r.ColdCost}}</td>
+      <td><b>{{r.ColdCost}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
       <td>{{r.EnergyValue}}</td>
-      <td>{{r.EnergyCost}}</td>
+      <td><b>{{r.EnergyCost}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
       <td>{{r.DrenageValue}}</td>
-      <td>{{r.DrenageCost}}</td>
+      <td><b>{{r.DrenageCost}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
+      <td><b>{{r.DrenageCost + r.HotCost + r.ColdCost + r.EnergyCost}}</b> <fa-icon [icon]="price_icon"></fa-icon></td>
       <td>{{r.CreatedAt}}</td>
       <td>
         <button (click)="deleteRecord(r.ID)" type="button" class="btn btn-danger">Delete</button>

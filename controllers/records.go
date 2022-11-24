@@ -56,7 +56,7 @@ func CreateRecord(c *gin.Context) {
 			ColdCost:     0,
 			EnergyValue:  input.EnergyValue,
 			EnergyCost:   0,
-			DrenageValue: input.DrenageValue,
+			DrenageValue: input.HotValue + input.ColdValue,
 			DrenageCost:  0,
 		}
 		models.DB.Create(&previous_record)
@@ -70,8 +70,8 @@ func CreateRecord(c *gin.Context) {
 		ColdCost:     tax.ColdPrice * (input.ColdValue - previous_record.ColdValue),
 		EnergyValue:  input.EnergyValue,
 		EnergyCost:   tax.EnergyPrice * (input.EnergyValue - previous_record.EnergyValue),
-		DrenageValue: input.DrenageValue,
-		DrenageCost:  tax.EnergyPrice * (input.EnergyValue - previous_record.EnergyValue),
+		DrenageValue: input.HotValue + input.ColdValue,
+		DrenageCost:  tax.DrenagePrice * (input.HotValue + input.ColdValue - previous_record.DrenageValue),
 	}
 	models.DB.Create(&record)
 
