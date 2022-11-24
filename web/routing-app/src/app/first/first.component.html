@@ -1,26 +1,40 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add record
-</button>
-<br/>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add record
+  </button>
+  <br/>
 
-<table class="table table-striped">
+  <table class="table table-striped">
   <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Value</th>
-      <th>Cost</th>
+      <th>Горячая вода (Показания счетчика)</th>
+      <th>Горячая вода (Стоимость)</th>
+      <th>Холодная вода (Показания счетчика)</th>
+      <th>Холодная вода (Стоимость)</th>
+      <th>Электричество (Показания счетчика)</th>
+      <th>Электричество (Стоимость)</th>
+      <th>Дренаж воды (Показания счетчика)</th>
+      <th>Дренаж воды (Стоимость)</th>    
       <th>CreatedAt</th>
+      <th></th>
     </tr>
   </thead>
   <tbody *ngFor="let r of records.data">
     <tr>
       <th>{{r.ID}}</th>
-      <td>{{r.Name}}</td>
-      <td>{{r.Value}}</td>
-      <td>{{r.Cost}}</td>
+      <td>{{r.HotValue}}</td>
+      <td>{{r.HotCost}}</td>
+      <td>{{r.ColdValue}}</td>
+      <td>{{r.ColdCost}}</td>
+      <td>{{r.EnergyValue}}</td>
+      <td>{{r.EnergyCost}}</td>
+      <td>{{r.DrenageValue}}</td>
+      <td>{{r.DrenageCost}}</td>
       <td>{{r.CreatedAt}}</td>
+      <td>
+        <button (click)="deleteRecord(r.ID)" type="button" class="btn btn-danger">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -51,7 +65,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button (click)="postRecord()" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

@@ -42,7 +42,7 @@ func CreateTax(c *gin.Context) {
 	}
 
 	// Create book
-	Tax := models.Tax{Name: input.Name, Value: input.Value}
+	Tax := models.Tax{HotPrice: input.HotPrice, ColdPrice: input.ColdPrice, EnergyPrice: input.EnergyPrice, DrenagePrice: input.DrenagePrice}
 	models.DB.Create(&Tax)
 
 	c.JSON(http.StatusOK, gin.H{"data": Tax})
@@ -51,23 +51,21 @@ func CreateTax(c *gin.Context) {
 // PATCH /books/:id
 // Update a book
 func UpdateTax(c *gin.Context) {
-	// Get model if exist
-	var Tax models.Tax
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&Tax).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Tax not found!"})
-		return
-	}
-
+	c.Header("Access-Control-Allow-Origin", "*")
 	// Validate input
-	var input models.UpdateTaxInput
-	if err := c.ShouldBindJSON(&input); err != nil {
+	var json models.UpdateTaxInput
+	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	var tax models.Tax
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&tax).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Tax not found!"})
+		return
+	}
+	models.DB.Model(&tax).Updates(json)
 
-	models.DB.Model(&Tax).Updates(input)
-
-	c.JSON(http.StatusOK, gin.H{"data": Tax})
+	c.JSON(http.StatusOK, gin.H{"data": tax})
 }
 
 // DELETE /books/:id

@@ -2,16 +2,20 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
-        <th>Value</th>
+        <th>Горячая вода (Стоимость куб.м)</th>
+        <th>Холодная вода (Стоимость куб.м)</th>
+        <th>Электричество (Стоимость квт/ч)</th>
+        <th>Дренаж (Стоимость куб.м)</th>
         <th>CreatedAt</th>
       </tr>
     </thead>
     <tbody *ngFor="let r of taxes.data">
       <tr>
         <th>{{r.ID}}</th>
-        <td>{{r.Name}}</td>
-        <td>{{r.Value}}</td>
+        <td>{{r.HotPrice}}</td>
+        <td>{{r.ColdPrice}}</td>
+        <td>{{r.EnergyPrice}}</td>
+        <td>{{r.DrenagePrice}}</td>
         <td>{{r.CreatedAt}}</td>
       </tr>
     </tbody>

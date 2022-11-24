@@ -43,25 +43,46 @@ func CreateRecord(c *gin.Context) {
 
 	// Create book
 	var tax models.Tax
-	if err := models.DB.Where("Name = ?", input.Name).Last(&tax).Error; err != nil {
+	if err := models.DB.Last(&tax).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Tax not found!"})
 		return
 	}
 	var previous_record models.Record
-	if err := models.DB.Where("Name = ?", input.Name).Last(&previous_record).Error; err != nil {
-		previous_record := models.Record{Name: input.Name, Value: input.Value, Cost: 0}
+	if err := models.DB.Last(&previous_record).Error; err != nil {
+		previous_record := models.Record{
+			HotValue:     input.HotValue,
+			HotCost:      0,
+			ColdValue:    input.ColdValue,
+			ColdCost:     0,
+			EnergyValue:  input.EnergyValue,
+			EnergyCost:   0,
+			DrenageValue: input.DrenageValue,
+			DrenageCost:  0,
+		}
 		models.DB.Create(&previous_record)
+		return
 	}
-	models.DB.Where("Name = ?", input.Name).Last(&previous_record)
-	record := models.Record{Name: input.Name, Value: input.Value, Cost: tax.Value * (input.Value - previous_record.Value)}
+	models.DB.Last(&previous_record)
+	record := models.Record{
+		HotValue:     input.HotValue,
+		HotCost:      tax.HotPrice * (input.HotValue - previous_record.HotValue),
+		ColdValue:    input.ColdValue,
+		ColdCost:     tax.ColdPrice * (input.ColdValue - previous_record.ColdValue),
+		EnergyValue:  input.EnergyValue,
+		EnergyCost:   tax.EnergyPrice * (input.EnergyValue - previous_record.EnergyValue),
+		DrenageValue: input.DrenageValue,
+		DrenageCost:  tax.EnergyPrice * (input.EnergyValue - previous_record.EnergyValue),
+	}
 	models.DB.Create(&record)
 
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, gin.H{"data": record})
 }
 
-// PATCH /books/:id
-// Update a book
+// PATCH /records/:id
+// Update a record
 func UpdateRecord(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 	// Get model if exist
 	var record models.Record
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&record).Error; err != nil {
@@ -81,8 +102,8 @@ func UpdateRecord(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": record})
 }
 
-// DELETE /books/:id
-// Delete a book
+// DELETE /records/:id
+// Delete a record
 func DeleteRecord(c *gin.Context) {
 	// Get model if exist
 	var record models.Record

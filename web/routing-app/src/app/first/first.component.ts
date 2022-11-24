@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -10,6 +11,16 @@ export class FirstComponent implements OnInit {
 
   records: any;
   constructor(private apiService: ApiService) { }
+
+  postRecord() {
+    this.apiService.createRecord().subscribe(data => {
+    });
+  }
+
+  deleteRecord(id: number) {
+    this.apiService.deleteRecord(id).subscribe(data => {
+    });
+  }
 
   ngOnInit(): void {
     this.apiService.getRecords().subscribe(data => {
