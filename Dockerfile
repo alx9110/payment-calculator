@@ -17,7 +17,6 @@ COPY . /app/
 RUN apk --no-cache add alpine-sdk
 COPY --from=ui /app/web/routing-app /app/web/routing-app
 RUN go build
-# ENTRYPOINT [ "/app/payment-calculator" ]
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/app/payment-calculator" ]
 
 EXPOSE 8080
