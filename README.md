@@ -15,3 +15,24 @@ curl -X POST -H "Accept: application/json" http://localhost:8080/api/records/ -d
 curl -X DELETE -H "Accept: application/json" http://localhost:8080/api/records/1
 ```
 ## Development
+### Run go application
+```
+go run ./
+```
+
+### Run angular application
+```
+cd web/routing-app
+ng serve
+```
+
+## Build for Production
+### Build Docker image
+```
+docker build -t payment-calculator ./
+```
+### Build & run go application
+```
+go build ./
+./payment-calculator
+```
