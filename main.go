@@ -6,6 +6,7 @@ import (
 	"github.com/alx9110/payment-calculator/controllers"
 	"github.com/alx9110/payment-calculator/models"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,7 +15,7 @@ func main() {
 	models.ConnectDatabase()
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:4200"},
+		AllowOrigins:     []string{"http://localhost:8080"},
 		AllowMethods:     []string{"PUT", "PATCH", "POST", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -22,7 +23,7 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 	// Serve frontend static files
-	// r.Use(static.Serve("/", static.LocalFile("./web", true)))
+	r.Use(static.Serve("/", static.LocalFile("web/routing-app/dist/routing-app", true)))
 	// Setup route group for the API
 	api := r.Group("/api")
 	{

@@ -1,0 +1,106 @@
+<div [chart]="chart"></div>
+
+<!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <fa-icon [icon]="add_icon"></fa-icon> Добавить показания счетчиков
+  </button>
+  <br/><br/>
+
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Горячая вода</th>
+      <th></th>
+      <th>Холодная вода</th>
+      <th></th>
+      <th>Электричество</th>
+      <th></th>
+      <th>Дренаж воды</th>
+      <th></th>
+      <th>Общая стоимость</th>
+      <th>Дата создания</th>
+      <th></th>
+    </tr>
+    <tr style="font-size: 0.7em;">
+      <th></th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Стоимость</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let r of records.data">
+    <tr>
+      <th>{{r.ID}}</th>
+      <td>{{r.HotValue}}</td>
+      <td><b>{{r.HotCost | number:'0.1'}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
+      <td>{{r.ColdValue}}</td>
+      <td><b>{{r.ColdCost | number:'0.1'}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
+      <td>{{r.EnergyValue}}</td>
+      <td><b>{{r.EnergyCost | number:'0.1'}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
+      <td>{{r.DrenageValue}}</td>
+      <td><b>{{r.DrenageCost | number:'0.1'}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
+      <td><b>{{r.DrenageCost + r.HotCost + r.ColdCost + r.EnergyCost | number:'0.1'}}</b> <fa-icon [icon]="price_icon"></fa-icon></td>
+      <td>{{r.CreatedAt | date}}</td>
+      <td>
+        <button (click)="deleteRecord(r.ID)" type="button" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr style="font-size: 0.7em;">
+      <th></th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Показания счетчика</th>
+      <th>Стоимость</th>
+      <th>Стоимость</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Добавление показаний счетчиков</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Показания счетчика горячей воды</span>
+          <input type="text" [placeholder]="123.456" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Показания счетчика холодной воды</span>
+          <input type="text" [placeholder]="123.456" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Показания счетчика электроэнергии</span>
+          <input type="text" [placeholder]="123.456" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="postRecord()" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

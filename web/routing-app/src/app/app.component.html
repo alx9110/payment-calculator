@@ -6,8 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-link" href="#">Счетчики</a>
-        <a routerLink="/second-component" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-link" href="#">Тарифы</a>
+        <a routerLink="/records-component" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-link" href="#">Счетчики</a>
+        <a routerLink="/taxes-component" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-link" href="#">Тарифы</a>
       </div>
     </div>
   </div>
@@ -17,3 +17,9 @@
 <div class="content container">
   <router-outlet></router-outlet>
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <span class="text-muted"><a class="navbar-brand" href="#"> <fa-icon [icon]="main_icon"></fa-icon> Payment calculator</a></span>
+  </div>
+</footer>

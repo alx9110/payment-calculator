@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faHouse, faRubleSign } from '@fortawesome/free-solid-svg-icons';
+import { Chart } from 'angular-highcharts';
+import { faCalculator } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable()
 export class DataService {
@@ -15,5 +16,6 @@ export class DataService {
 })
 export class AppComponent {
   title = 'routing-app';
-  main_icon = faHouse;
+  main_icon = faCalculator;
+  chart = Chart;
 }

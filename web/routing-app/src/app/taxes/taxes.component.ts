@@ -3,10 +3,10 @@ import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-second',
-  templateUrl: './second.component.html',
-  styleUrls: ['./second.component.css']
+  templateUrl: './taxes.component.html',
+  styleUrls: ['./taxes.component.css']
 })
-export class SecondComponent implements OnInit {
+export class TaxesComponent implements OnInit {
 
   taxes: any;
   constructor(private apiService: ApiService) { }
