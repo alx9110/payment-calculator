@@ -5,6 +5,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/alx9110/payment-calculator/ext"
 	"github.com/alx9110/payment-calculator/models"
 	"github.com/gin-gonic/gin"
 )
@@ -65,13 +66,13 @@ func CreateRecord(c *gin.Context) {
 	models.DB.Last(&previous_record)
 	record := models.Record{
 		HotValue:     input.HotValue,
-		HotCost:      tax.HotPrice * (input.HotValue - previous_record.HotValue),
+		HotCost:      ext.CalcCost(tax.HotPrice, input.HotValue, previous_record.HotValue),
 		ColdValue:    input.ColdValue,
-		ColdCost:     tax.ColdPrice * (input.ColdValue - previous_record.ColdValue),
+		ColdCost:     ext.CalcCost(tax.ColdPrice, input.ColdValue, previous_record.ColdValue),
 		EnergyValue:  input.EnergyValue,
-		EnergyCost:   tax.EnergyPrice * (input.EnergyValue - previous_record.EnergyValue),
+		EnergyCost:   ext.CalcCost(tax.EnergyPrice, input.EnergyValue, previous_record.EnergyValue),
 		DrenageValue: input.HotValue + input.ColdValue,
-		DrenageCost:  tax.DrenagePrice * (input.HotValue + input.ColdValue - previous_record.DrenageValue),
+		DrenageCost:  ext.CalcCost(tax.DrenagePrice, input.HotValue+input.ColdValue, previous_record.DrenageValue),
 	}
 	models.DB.Create(&record)
 
