@@ -16,5 +16,6 @@ func ConnectDatabase() {
 
 	database.AutoMigrate(&Record{})
 	database.AutoMigrate(&Tax{})
+	database.AutoMigrate(&User{})
 	DB = database
 }

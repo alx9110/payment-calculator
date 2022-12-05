@@ -3,6 +3,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/alx9110/payment-calculator/ext"
@@ -41,6 +42,7 @@ func CreateRecord(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	fmt.Println(input)
 
 	// Create book
 	var tax models.Tax

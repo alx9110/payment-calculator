@@ -1,0 +1,46 @@
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a class="navbar-brand" href="#"> <fa-icon [icon]="main_icon"></fa-icon> Payment calculator</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" *ngIf="authService.isAuthenticated">
+      <li><a routerLink="/records" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-link" href="#">Счетчики</a></li>
+      <li><a routerLink="/taxes" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-link" href="#">Тарифы</a></li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+      <span *ngIf="!authService.isAuthenticated">
+      <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Вход</button>
+      <button type="button" class="btn btn-primary">Регистрация</button>
+      </span>
+      <span *ngIf="authService.isAuthenticated">
+        <button type="button" class="btn btn-outline-primary me-2" (click)="authService.logout()">Выход</button>
+      </span>
+    </div>
+  </header>
+</div>
+
+<div class="content container">
+  <!-- <div class="alert alert-danger" role="alert">
+    A simple danger alert—check it out!
+  </div> -->
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="footer">
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <span class="text-muted"><a class="navbar-brand" href="#"> <fa-icon [icon]="main_icon"></fa-icon> Payment calculator</a></span>
+      </div>
+      <div class="col">
+        <span class="text-muted"><a target="_blank" class="navbar-brand" href="https://t.me/PaymentCalculatorBot"><img src="../assets/telegram.png" width="30px" height="30px"></a></span>
+      </div>
+      <div class="col">
+        2022
+      </div>
+    </div>
+  </div>
+</footer>

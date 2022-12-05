@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { faRubleSign, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../api.service';
 import { Chart } from 'angular-highcharts';
 
 @Component({
-  selector: 'app-first',
+  selector: 'app-records',
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css']
 })
@@ -15,11 +14,9 @@ export class RecordsComponent implements OnInit {
   records: any;
   chart: any;
 
-  constructor(private apiService: ApiService) { }
-
-  getChart() {
-
-  }
+  constructor(
+    private apiService: ApiService,
+    ) { }
 
   postRecord() {
     this.apiService.createRecord().subscribe(data => {
@@ -30,17 +27,20 @@ export class RecordsComponent implements OnInit {
     this.apiService.deleteRecord(id).subscribe(data => {
     })
   };
-  
 
   ngOnInit(): void {
 
     this.apiService.getRecords().subscribe(data => {
       this.records = data;
-      
       let hot_values = []
       let cold_values = []
       let energy_values = []
       let drenage_values = []
+      let months = []
+
+      for (let record of this.records.data) {
+        months.push(record.CreatedAt);
+      }
 
       for (let record of this.records.data) {
         hot_values.push(record.HotValue);
@@ -60,10 +60,13 @@ export class RecordsComponent implements OnInit {
 
       this.chart = new Chart({
         chart: {
-          type: 'line'
+          type: 'column'
         },
         title: {
           text: 'Аналитика потребления по счетчикам'
+        },
+        xAxis: {
+          categories: months
         },
         credits: {
           enabled: false
@@ -71,29 +74,26 @@ export class RecordsComponent implements OnInit {
         series: [
           {
             name: 'Горячая вода',
-            type: 'line',
+            type: 'column',
             data: hot_values,
           },
           {
             name: 'Холодная вода',
-            type: 'line',
+            type: 'column',
             data: cold_values,
           },
           {
             name: 'Электричество',
-            type: 'line',
+            type: 'column',
             data: energy_values,
           },
           {
             name: 'Дренаж',
-            type: 'line',
+            type: 'column',
             data: drenage_values,
           },
         ]
       });
-      
-      console.log(this.records)
-
     });
 
   }

@@ -13,10 +13,10 @@ type Tax struct {
 }
 
 type CreateTaxInput struct {
-	HotPrice     float32 `json:"hot_price" binding:"required"`
-	ColdPrice    float32 `json:"cold_price" binding:"required"`
-	EnergyPrice  float32 `json:"energy_price" binding:"required"`
-	DrenagePrice float32 `json:"drenage_price" binding:"required"`
+	HotPrice     float32 `json:"hot_price"`
+	ColdPrice    float32 `json:"cold_price"`
+	EnergyPrice  float32 `json:"energy_price"`
+	DrenagePrice float32 `json:"drenage_price"`
 }
 
 type UpdateTaxInput struct {

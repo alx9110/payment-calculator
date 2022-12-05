@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Chart } from 'angular-highcharts';
 import { faCalculator } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from './auth.service';
 
-@Injectable()
-export class DataService {
-  constructor(private http: HttpClient) {}
-}
 
 @Component({
   selector: 'app-root',
@@ -15,6 +10,7 @@ export class DataService {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(public authService: AuthService) { }
   title = 'routing-app';
   main_icon = faCalculator;
   chart = Chart;

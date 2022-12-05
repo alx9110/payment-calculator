@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+
 
 @Injectable()
 export class ApiService {
@@ -9,15 +9,11 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getRecords() {
-    // const headers = new HttpHeaders({
-    //   'Access-Control-Allow-Origin': '*',
-    // })
     return this.http.get(this.API_URL + `/records/`);
   }
 
-  // createRecord(record: Record): Observable<Record> {
   createRecord() {
-    return this.http.post<Record>(this.API_URL + `/records/`, {HotValue: 1, ColdValue: 1, EnergyValue: 1, DrenageValue: 1})
+    return this.http.post<Record>(this.API_URL + `/records/`, {HotValue: 10.0, ColdValue: 10.1, EnergyValue: 10.5})
   }
 
   deleteRecord(id: number) {
@@ -31,9 +27,7 @@ export class ApiService {
 }
 
 export interface Record {
-  Id: BigInt;
   HotValue: string;
   ColdValue: string;
   EnergyValue: string;
-  DrenageValue: string;
 }

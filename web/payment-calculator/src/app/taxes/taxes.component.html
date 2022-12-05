@@ -9,7 +9,7 @@
         <th>Создано</th>
       </tr>
     </thead>
-    <tbody *ngFor="let r of taxes.data">
+    <tbody *ngFor="let r of taxes?.data">
       <tr>
         <th>{{r.ID}}</th>
         <td>{{r.HotPrice}} .руб</td>
