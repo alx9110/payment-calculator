@@ -20,21 +20,7 @@ export class RecordsComponent implements OnInit {
     private apiService: ApiService,
   ) { }
 
-  postRecord() {
-    this.apiService.createRecord()
-  }
-
-  deleteRecord(id: number) {
-    this.apiService.deleteRecord(id).pipe(tap(() => this.refresh$.next())).subscribe()
-  };
-
-  ngOnInit(): void {
-    this.refresh$.pipe(
-      switchMap(() => this.apiService.getRecords().pipe(
-        tap(() => console.log("Got data"))
-      )
-      )).subscribe();
-    this.refresh$.next()
+  getRecords() {
     this.apiService.getRecords().subscribe(data => {
       this.records = data;
       let hot_values = []
@@ -100,7 +86,23 @@ export class RecordsComponent implements OnInit {
         ]
       });
     });
+  }
 
+  postRecord() {
+    this.apiService.createRecord().pipe(tap(() => this.refresh$.next())).subscribe()
+  }
+
+  deleteRecord(id: number) {
+    this.apiService.deleteRecord(id).pipe(tap(() => this.refresh$.next())).subscribe()
+  };
+
+  ngOnInit(): void {
+    this.refresh$.pipe(
+      switchMap(() => this.apiService.getRecords().pipe(
+        tap(() => this.getRecords())
+      )
+      )).subscribe();
+    this.refresh$.next()
   }
 
 }

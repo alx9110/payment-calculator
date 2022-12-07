@@ -17,11 +17,7 @@ export class ApiService {
   }
 
   createRecord() {
-    this.http.post<Record>(this.API_URL + `/records/`, {HotValue: 10.0, ColdValue: 10.1, EnergyValue: 13657}).subscribe(
-      (res: any) => {
-        this.router.navigateByUrl('/records');
-      }
-    )
+    return this.http.post<Record>(this.API_URL + `/records/`, {HotValue: 10.0, ColdValue: 10.1, EnergyValue: 13657})
   }
 
   deleteRecord(id: number) {
