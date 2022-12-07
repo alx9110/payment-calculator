@@ -16,6 +16,7 @@ import { RecordsComponent } from './records/records.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService, AuthInterceptorService, CanActivateViaAuthGuard } from './auth.service';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AuthService, AuthInterceptorService, CanActivateViaAuthGuard } from './
     RecordsComponent,
     TaxesComponent,
     LoginComponent,
+    CreateUserComponent,
   ],
   imports: [
     HttpClientModule,

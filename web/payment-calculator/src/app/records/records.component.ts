@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faRubleSign, faAdd } from '@fortawesome/free-solid-svg-icons';
+import { Subject, switchMap, tap } from 'rxjs';
 import { ApiService } from '../api.service';
 import { Chart } from 'angular-highcharts';
 
@@ -13,23 +14,27 @@ export class RecordsComponent implements OnInit {
   add_icon = faAdd;
   records: any;
   chart: any;
+  refresh$ = new Subject<void>();
 
   constructor(
     private apiService: ApiService,
-    ) { }
+  ) { }
 
   postRecord() {
-    this.apiService.createRecord().subscribe(data => {
-    });
+    this.apiService.createRecord()
   }
 
   deleteRecord(id: number) {
-    this.apiService.deleteRecord(id).subscribe(data => {
-    })
+    this.apiService.deleteRecord(id).pipe(tap(() => this.refresh$.next())).subscribe()
   };
 
   ngOnInit(): void {
-
+    this.refresh$.pipe(
+      switchMap(() => this.apiService.getRecords().pipe(
+        tap(() => console.log("Got data"))
+      )
+      )).subscribe();
+    this.refresh$.next()
     this.apiService.getRecords().subscribe(data => {
       this.records = data;
       let hot_values = []
@@ -74,22 +79,22 @@ export class RecordsComponent implements OnInit {
         series: [
           {
             name: 'Горячая вода',
-            type: 'column',
+            type: 'line',
             data: hot_values,
           },
           {
             name: 'Холодная вода',
-            type: 'column',
+            type: 'line',
             data: cold_values,
           },
           {
             name: 'Электричество',
-            type: 'column',
+            type: 'line',
             data: energy_values,
           },
           {
             name: 'Дренаж',
-            type: 'column',
+            type: 'line',
             data: drenage_values,
           },
         ]

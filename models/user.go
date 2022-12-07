@@ -25,17 +25,18 @@ type User struct {
 	gorm.Model
 	Email    string `json:"email" gorm:"unique"`
 	Password string `json:"password"`
-	BotId    string `json:"botid" gorm:"unique"`
+	BotId    string `json:"bot_id"`
 }
 
 type CreateUserInput struct {
 	Email    string `json:"email"`
-	BotId    int16  `json:"bot_id"`
 	Password string `json:"password"`
+	BotId    int16  `json:"bot_id"`
 }
 
 type UpdateUserInput struct {
 	ID       uint    `json:"-"`
 	Email    float32 `json:"hot_value"`
 	Password string  `json:"password"`
+	BotId    string  `json:"bot_id"`
 }

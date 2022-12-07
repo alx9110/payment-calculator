@@ -42,6 +42,29 @@ export class AuthService {
             }
         );
     }
+
+    createUser(email: string, pass: string, botid: string = '1111') {
+
+        const data = {
+            email: email,
+            password: pass,
+            botid: botid,
+        };
+        const headers = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
+        };
+        this.http.post(this.API_URL + '/user/create', data).subscribe(
+            (res: any) => {
+                this.http.post(this.API_URL + '/user/token', data, headers).subscribe(
+                    (res: any) => {
+                        localStorage.setItem(this.TOKEN_KEY, res.token);
+        
+                        this.router.navigateByUrl('/records');
+                    }
+                );
+            }
+        );
+    }
 }
 
 @Injectable()
