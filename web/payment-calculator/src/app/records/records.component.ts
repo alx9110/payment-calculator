@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faRubleSign, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { Subject, switchMap, tap } from 'rxjs';
 import { ApiService } from '../api.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Chart } from 'angular-highcharts';
 
 @Component({
@@ -9,16 +10,25 @@ import { Chart } from 'angular-highcharts';
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css']
 })
+
 export class RecordsComponent implements OnInit {
   price_icon = faRubleSign;
   add_icon = faAdd;
   records: any;
   chart: any;
   refresh$ = new Subject<void>();
+  form: FormGroup;
 
   constructor(
     private apiService: ApiService,
-  ) { }
+    private fb: FormBuilder,
+  ) {
+    this.form = this.fb.group({
+      hot_value: ['', Validators.required],
+      cold_value: ['', Validators.required],
+      energy_value: ['', Validators.required],
+    });
+  }
 
   getRecords() {
     this.apiService.getRecords().subscribe(data => {
@@ -28,6 +38,11 @@ export class RecordsComponent implements OnInit {
       let energy_values = []
       let drenage_values = []
       let months = []
+      let error = ""
+
+      if (this.records.error) {
+        error = this.records.error
+      }
 
       for (let record of this.records.data) {
         months.push(record.CreatedAt);
@@ -89,7 +104,10 @@ export class RecordsComponent implements OnInit {
   }
 
   postRecord() {
-    this.apiService.createRecord().pipe(tap(() => this.refresh$.next())).subscribe()
+    const val = this.form.value;
+    if (val.hot_value && val.cold_value && val.energy_value) {
+      this.apiService.createRecord(val.hot_value, val.cold_value, val.energy_value).pipe(tap(() => this.refresh$.next())).subscribe()
+    }
   }
 
   deleteRecord(id: number) {

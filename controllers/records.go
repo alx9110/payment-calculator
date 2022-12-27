@@ -3,7 +3,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/alx9110/payment-calculator/ext"
@@ -11,9 +10,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GET /books
-// Get all books
+// GET /records
+// Get all records
 func FindRecords(c *gin.Context) {
+	// tokenString := c.GetHeader("Authorization")
+	// user, _ := ext.ValidateToken(tokenString)
+	// fmt.Print(user)
 	var products []models.Record
 	models.DB.Find(&products)
 	c.Header("Access-Control-Allow-Origin", "*")
@@ -22,9 +24,9 @@ func FindRecords(c *gin.Context) {
 	})
 }
 
-// GET /books/:id
-// Find a book
-func FindRecord(c *gin.Context) { // Get model if exist
+// GET /records/:id
+// Find a record
+func FindRecord(c *gin.Context) {
 	var product models.Record
 
 	if err := models.DB.Where("ID = ?", c.Param("id")).First(&product).Error; err != nil {
@@ -35,6 +37,8 @@ func FindRecord(c *gin.Context) { // Get model if exist
 	c.JSON(http.StatusOK, gin.H{"data": product})
 }
 
+// POST /records/
+// Create a record
 func CreateRecord(c *gin.Context) {
 	// Validate input
 	var input models.CreateRecordInput
@@ -42,9 +46,7 @@ func CreateRecord(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	fmt.Println(input)
 
-	// Create book
 	var tax models.Tax
 	if err := models.DB.Last(&tax).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Tax not found!"})

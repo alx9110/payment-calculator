@@ -43,7 +43,7 @@ export class AuthService {
         );
     }
 
-    createUser(email: string, pass: string, botid: string = '1111') {
+    createUser(email: string, pass: string, botid: string) {
 
         const data = {
             email: email,

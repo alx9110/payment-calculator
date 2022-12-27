@@ -16,8 +16,8 @@ export class ApiService {
     return this.http.get(this.API_URL + `/records/`);
   }
 
-  createRecord() {
-    return this.http.post<Record>(this.API_URL + `/records/`, {HotValue: 10.0, ColdValue: 10.1, EnergyValue: 13657})
+  createRecord(hot_value: number, cold_value: number, energy_value: number) {
+    return this.http.post<Record>(this.API_URL + `/records/`, {HotValue: hot_value, ColdValue: cold_value, EnergyValue: energy_value})
   }
 
   deleteRecord(id: number) {

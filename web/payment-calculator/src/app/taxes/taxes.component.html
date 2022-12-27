@@ -1,3 +1,9 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <fa-icon [icon]="add_icon"></fa-icon> Добавить новые тарифы
+</button>
+<br/><br/>
+
 <table class="table table-striped">
     <thead>
       <tr>
@@ -12,10 +18,10 @@
     <tbody *ngFor="let r of taxes?.data">
       <tr>
         <th>{{r.ID}}</th>
-        <td>{{r.HotPrice}} .руб</td>
-        <td>{{r.ColdPrice}} .руб</td>
-        <td>{{r.EnergyPrice}} .руб</td>
-        <td>{{r.DrenagePrice}} .руб</td>
+        <td>{{r.HotPrice}}</td>
+        <td>{{r.ColdPrice}}</td>
+        <td>{{r.EnergyPrice}}</td>
+        <td>{{r.DrenagePrice}}</td>
         <td>{{r.CreatedAt}}</td>
       </tr>
     </tbody>
