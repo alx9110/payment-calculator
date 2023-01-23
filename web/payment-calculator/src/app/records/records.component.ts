@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faRubleSign, faAdd } from '@fortawesome/free-solid-svg-icons';
+import { faRubleSign, faAdd, faHotTub } from '@fortawesome/free-solid-svg-icons';
 import { Subject, switchMap, tap } from 'rxjs';
 import { ApiService } from '../api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import { Chart } from 'angular-highcharts';
 export class RecordsComponent implements OnInit {
   price_icon = faRubleSign;
   add_icon = faAdd;
+  hot_icon = faHotTub;
   records: any;
   chart: any;
   refresh$ = new Subject<void>();
