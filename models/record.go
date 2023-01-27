@@ -14,6 +14,7 @@ type Record struct {
 	EnergyCost   float32
 	DrenageValue float32
 	DrenageCost  float32
+	Email        string
 }
 
 type CreateRecordInput struct {

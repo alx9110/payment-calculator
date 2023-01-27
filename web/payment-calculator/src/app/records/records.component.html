@@ -48,6 +48,7 @@
       <td><b>{{r.DrenageCost | number:'0.1'}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
       <td><b>{{r.DrenageCost + r.HotCost + r.ColdCost + r.EnergyCost | number:'0.1'}}</b> <fa-icon [icon]="price_icon"></fa-icon></td>
       <td>{{r.CreatedAt | date}}</td>
+      <td>{{r.Email}}</td>
       <td>
         <button type="submit" (click)="deleteRecord(r.ID)" type="button" class="btn btn-danger">Удалить</button>
       </td>

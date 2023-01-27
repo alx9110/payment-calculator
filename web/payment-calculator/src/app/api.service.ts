@@ -28,10 +28,25 @@ export class ApiService {
     return this.http.get(this.API_URL + `/taxes/`);
   }
 
+  createTax(hot_price: number, cold_price: number, energy_price: number, drenage_price: number) {
+    return this.http.post<Tax>(this.API_URL + `/taxes/`, {HotPrice: hot_price, ColdPrice: cold_price, EnergyPrice: energy_price, DrenagePrice: drenage_price})
+  }
+
+  deleteTax(id: number) {
+    return this.http.delete(this.API_URL + '/taxes/' + id)
+  };
+
 }
 
 export interface Record {
   HotValue: string;
   ColdValue: string;
   EnergyValue: string;
+}
+
+export interface Tax {
+  HotPrice: string;
+  ColdPrice: string;
+  EnergyPrice: string;
+  DrenagePrice: string;
 }

@@ -13,14 +13,18 @@ import (
 // GET /records
 // Get all records
 func FindRecords(c *gin.Context) {
-	// tokenString := c.GetHeader("Authorization")
-	// user, _ := ext.ValidateToken(tokenString)
-	// fmt.Print(user)
-	var products []models.Record
-	models.DB.Find(&products)
+	tokenString := c.GetHeader("Authorization")
+	email, validation_error := ext.ValidateToken(tokenString)
+	if validation_error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": validation_error.Error()})
+		return
+	}
+
+	var records []models.Record
+	models.DB.Where("Email = ?", email).Find(&records)
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(200, gin.H{
-		"data": products,
+		"data": records,
 	})
 }
 
@@ -40,6 +44,14 @@ func FindRecord(c *gin.Context) {
 // POST /records/
 // Create a record
 func CreateRecord(c *gin.Context) {
+
+	tokenString := c.GetHeader("Authorization")
+	email, validation_error := ext.ValidateToken(tokenString)
+	if validation_error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": validation_error.Error()})
+		return
+	}
+
 	// Validate input
 	var input models.CreateRecordInput
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -53,7 +65,7 @@ func CreateRecord(c *gin.Context) {
 		return
 	}
 	var previous_record models.Record
-	if err := models.DB.Last(&previous_record).Error; err != nil {
+	if err := models.DB.Where("Email = ?", email).Last(&previous_record).Error; err != nil {
 		previous_record := models.Record{
 			HotValue:     input.HotValue,
 			HotCost:      0,
@@ -63,6 +75,7 @@ func CreateRecord(c *gin.Context) {
 			EnergyCost:   0,
 			DrenageValue: input.HotValue + input.ColdValue,
 			DrenageCost:  0,
+			Email:        email,
 		}
 		models.DB.Create(&previous_record)
 		return
@@ -77,6 +90,7 @@ func CreateRecord(c *gin.Context) {
 		EnergyCost:   ext.CalcCost(tax.EnergyPrice, input.EnergyValue, previous_record.EnergyValue),
 		DrenageValue: input.HotValue + input.ColdValue,
 		DrenageCost:  ext.CalcCost(tax.DrenagePrice, input.HotValue+input.ColdValue, previous_record.DrenageValue),
+		Email:        email,
 	}
 	models.DB.Create(&record)
 
@@ -110,9 +124,16 @@ func UpdateRecord(c *gin.Context) {
 // DELETE /records/:id
 // Delete a record
 func DeleteRecord(c *gin.Context) {
-	// Get model if exist
+
+	tokenString := c.GetHeader("Authorization")
+	email, validation_error := ext.ValidateToken(tokenString)
+	if validation_error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": validation_error.Error()})
+		return
+	}
+
 	var record models.Record
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&record).Error; err != nil {
+	if err := models.DB.Where("id = ? AND Email = ?", c.Param("id"), email).First(&record).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}

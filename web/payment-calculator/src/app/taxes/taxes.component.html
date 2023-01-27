@@ -13,6 +13,7 @@
         <th>Электричество (Стоимость квт/ч)</th>
         <th>Дренаж (Стоимость куб.м)</th>
         <th>Создано</th>
+        <th></th>
       </tr>
     </thead>
     <tbody *ngFor="let r of taxes?.data">
@@ -22,7 +23,47 @@
         <td>{{r.ColdPrice}}</td>
         <td>{{r.EnergyPrice}}</td>
         <td>{{r.DrenagePrice}}</td>
-        <td>{{r.CreatedAt}}</td>
+        <td>{{r.CreatedAt | date}}</td>
+        <td>{{r.Email}}</td>
+        <td>
+          <button type="submit" (click)="deleteTax(r.ID)" type="button" class="btn btn-danger">Удалить</button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form [formGroup]="form">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Добавление показаний счетчиков</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="hot">Горячая вода (Стоимость куб/м)</span>
+          <input formControlName="hot_price" type="number" [placeholder]="123.456" class="form-control" placeholder="" aria-label="hot">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="cold">Холодная вода (Стоимость куб/м)</span>
+          <input formControlName="cold_price" type="number" [placeholder]="123.456" class="form-control" placeholder="" aria-label="cold">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="energy">Электричество (Стоимость квт/ч)</span>
+          <input formControlName="energy_price" type="number" [placeholder]="123.456" class="form-control" placeholder="" aria-label="energy">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="drenage">Дренаж (Стоимость куб/м)</span>
+          <input formControlName="drenage_price" type="number" [placeholder]="123.456" class="form-control" placeholder="" aria-label="drenage">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" (click)="postTax()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
