@@ -31,6 +31,15 @@ ng serve
 ```
 docker build -t payment-calculator ./
 ```
+### Run Docker image for testing
+#### Run container in background
+```
+docker run -d -p 127.0.0.1:8080:8080 payment-calculator
+```
+#### Run container in foreground
+```
+docker run -p 127.0.0.1:8080:8080 payment-calculator
+```
 ### Build & run go application
 ```
 go build ./

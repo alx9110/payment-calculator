@@ -68,6 +68,7 @@
         },
           "configurations": {
             "production": {
+              "proxyConfig": "src/proxy.conf.prod.json",
               "browserTarget": "routing-app:build:production"
             },
             "development": {

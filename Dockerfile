@@ -3,7 +3,7 @@ FROM node:14-alpine as ui
 
 COPY ./web /app/web
 
-WORKDIR /app/web/routing-app
+WORKDIR /app/web/payment-calculator
 
 RUN npm install && npm run build
 
@@ -15,7 +15,8 @@ WORKDIR /app
 COPY . /app/
 
 RUN apk --no-cache add alpine-sdk
-COPY --from=ui /app/web/routing-app /app/web/routing-app
+COPY --from=ui /app/web/payment-calculator/dist /srv/www
+ENV PAYMENT_CALCULATOR_ENV=PRODUCTION
 RUN go build
 ENTRYPOINT [ "/app/payment-calculator" ]
 
