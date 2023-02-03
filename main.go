@@ -49,7 +49,7 @@ func main() {
 	// Serve frontend static files
 	if production {
 		// Serve frontend static files
-		r.Use(static.Serve("/", static.LocalFile("./www", true)))
+		r.Use(static.Serve("/", static.LocalFile("/srv/www", true)))
 	}
 	// Setup route group for the API
 	api := r.Group("/api")
