@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class ApiService {
-  API_URL = 'http://0.0.0.0:8080/api';
+  API_URL = 'http://localhost:8080/api';
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -21,7 +21,7 @@ export class ApiService {
 
   deleteRecord(id: number) {
     return this.http.delete(this.API_URL + '/records/' + id)
-  };
+  }
 
   getTaxes() {
     return this.http.get(this.API_URL + `/taxes/`);
@@ -33,7 +33,7 @@ export class ApiService {
 
   deleteTax(id: number) {
     return this.http.delete(this.API_URL + '/taxes/' + id)
-  };
+  }
 
 }
 
