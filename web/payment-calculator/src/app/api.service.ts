@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class ApiService {
-  API_URL = 'http://localhost:8080/api';
+  API_URL = 'http://127.0.0.1:8080/api';
   constructor(
     private http: HttpClient,
     private router: Router,
