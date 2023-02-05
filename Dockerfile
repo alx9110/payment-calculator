@@ -15,7 +15,7 @@ WORKDIR /app
 COPY . /app/
 
 RUN apk --no-cache add alpine-sdk
-COPY --from=ui /app/web/payment-calculator/dist /srv/www
+COPY --from=ui /app/web/payment-calculator/dist/routing-app /srv/www
 ENV PAYMENT_CALCULATOR_ENV=PRODUCTION
 RUN go build
 ENTRYPOINT [ "/app/payment-calculator" ]

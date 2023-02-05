@@ -38,7 +38,6 @@ func main() {
 			fmt.Sprintf("http://localhost:%s", port),
 			fmt.Sprintf("http://0.0.0.0:%s", port),
 			fmt.Sprintf("http://127.0.0.1:%s", port),
-			fmt.Sprintf("http://:62.84.126.84:%s", port),
 			fmt.Sprintf("http://pay-calc.ru:%s", port),
 		},
 		AllowMethods:     []string{"PUT", "PATCH", "POST", "DELETE", "OPTIONS"},
