@@ -21,7 +21,7 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['records', 'help'])
 def get_records(message):
-    data = requests.get("http://localhost:8080/api/records").json()
+    data = requests.get("http://localhost:80/api/records").json()
     text = "Просмотр показаний за последние полгода:\n"
     for line in data['data']:
         text += f" \
@@ -32,7 +32,7 @@ def get_records(message):
 
 @bot.message_handler(commands=['taxes', 'help'])
 def get_records(message):
-    data = requests.get("http://localhost:8080/api/taxes").json()
+    data = requests.get("http://localhost:80/api/taxes").json()
     bot.reply_to(message, data)
 
 @bot.message_handler(commands=['hot', 'help'], func=lambda message: True)
@@ -45,8 +45,8 @@ def create_records(message):
         "drenage_price": 2.33,
     }
     headers = {"Content-Type": "application/json"}
-    data = requests.post("http://localhost:8080/api/taxes", json=rec, headers=headers).text
-    print(requests.post("http://localhost:8080/api/taxes", json=rec, headers=headers).request.body)
+    data = requests.post("http://localhost:80/api/taxes", json=rec, headers=headers).text
+    print(requests.post("http://localhost:80/api/taxes", json=rec, headers=headers).request.body)
     bot.reply_to(message, data)
 
 @bot.message_handler(func=lambda message: True)

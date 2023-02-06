@@ -1,12 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { Router, CanActivate } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class AuthService {
 
-    API_URL = 'http://127.0.0.1:8080/api';
+    API_URL = environment.apiUrl+'/api';
     TOKEN_KEY = 'token';
 
     constructor(private http: HttpClient, private router: Router) { }

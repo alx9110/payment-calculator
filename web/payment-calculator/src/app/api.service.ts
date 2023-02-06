@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class ApiService {
-  API_URL = 'http://127.0.0.1:8080/api';
+  API_URL = environment.apiUrl+'/api';
   constructor(
     private http: HttpClient,
     private router: Router,
