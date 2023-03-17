@@ -14,6 +14,7 @@ WORKDIR /app
 
 COPY . /app/
 
+RUN mkdir -p /var/payment-calculator
 RUN apk --no-cache add alpine-sdk
 COPY --from=ui /app/web/payment-calculator/dist/routing-app /srv/www
 ENV PAYMENT_CALCULATOR_ENV=PRODUCTION

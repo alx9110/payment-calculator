@@ -44,7 +44,7 @@ func FindRecord(c *gin.Context) {
 // POST /records/
 // Create a record
 func CreateRecord(c *gin.Context) {
-
+	c.Header("Access-Control-Allow-Origin", "*")
 	tokenString := c.GetHeader("Authorization")
 	email, validation_error := ext.ValidateToken(tokenString)
 	if validation_error != nil {
@@ -94,7 +94,6 @@ func CreateRecord(c *gin.Context) {
 	}
 	models.DB.Create(&record)
 
-	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, gin.H{"data": record})
 }
 
@@ -102,7 +101,6 @@ func CreateRecord(c *gin.Context) {
 // Update a record
 func UpdateRecord(c *gin.Context) {
 	c.Header("Access-Control-Allow-Origin", "*")
-	// Get model if exist
 	var record models.Record
 	if err := models.DB.Where("id = ?", c.Param("id")).First(&record).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})

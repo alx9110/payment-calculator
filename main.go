@@ -30,8 +30,9 @@ func main() {
 	viper.ReadInConfig()
 
 	port := viper.Get(fmt.Sprintf("%s.port", env))
+	connection_string := viper.Get(fmt.Sprintf("%s.connection_string", env))
 	// Routing
-	models.ConnectDatabase()
+	models.ConnectDatabase(connection_string)
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
@@ -46,7 +47,7 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	// Serve frontend static files
+
 	if production {
 		// Serve frontend static files
 		r.Use(static.Serve("/", static.LocalFile("/srv/www", true)))
@@ -54,8 +55,10 @@ func main() {
 	// Setup route group for the API
 	api := r.Group("/api")
 	{
+		// JWT auth
 		api.POST("/user/token", controllers.GenerateToken)
 		api.POST("/user/create", controllers.RegisterUser)
+		// Protected API
 		secured := api.Use(ext.Auth())
 		// Records
 		secured.GET("/records/", controllers.FindRecords)

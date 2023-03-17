@@ -34,7 +34,7 @@ docker build -t payment-calculator ./
 ### Run Docker image for testing
 #### Run container in background
 ```
-docker run -d -p 127.0.0.1:8080:8080 payment-calculator
+docker run -v /home/<user name>:/root/ -d -p 127.0.0.1:8080:8080 payment-calculator
 ```
 #### Run container in foreground
 ```
@@ -44,4 +44,8 @@ docker run -p 127.0.0.1:8080:8080 payment-calculator
 ```
 go build ./
 ./payment-calculator
+```
+## Production
+```
+sudo docker run -v /home/<user name>:/var/payment-calculator/ -d -p 80:8080 payment-calculator
 ```
