@@ -32,7 +32,6 @@
       <th>Стоимость</th>
       <th>Стоимость</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody *ngFor="let r of records?.data">
@@ -48,7 +47,6 @@
       <td><b>{{r.DrenageCost | number:'0.1'}}</b>&nbsp;<fa-icon [icon]="price_icon"></fa-icon></td>
       <td><b>{{r.DrenageCost + r.HotCost + r.ColdCost + r.EnergyCost | number:'0.1'}}</b> <fa-icon [icon]="price_icon"></fa-icon></td>
       <td>{{r.CreatedAt | date}}</td>
-      <td>{{r.Email}}</td>
       <td>
         <button type="submit" (click)="deleteRecord(r.ID)" type="button" class="btn btn-danger">Удалить</button>
       </td>
@@ -99,8 +97,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" (click)="postRecord()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" (click)="postRecord()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
       </div>
     </div>
   </div>

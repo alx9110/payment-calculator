@@ -8,7 +8,8 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
     API_URL = environment.apiUrl+'/api';
-    TOKEN_KEY = 'token';
+    TOKEN_KEY = 'PAYCALC-JWT';
+    LOGIN_KEY = 'PAYCALC-LOGIN';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -22,6 +23,7 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem(this.TOKEN_KEY);
+        localStorage.removeItem(this.LOGIN_KEY);
         this.router.navigateByUrl('/home');
     }
 
@@ -38,7 +40,7 @@ export class AuthService {
         this.http.post(this.API_URL + '/user/token', data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
-
+                localStorage.setItem(this.LOGIN_KEY, res.login);
                 this.router.navigateByUrl('/records');
             }
         );
