@@ -17,6 +17,7 @@ import { TaxesComponent } from './taxes/taxes.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService, AuthInterceptorService, CanActivateViaAuthGuard } from './auth.service';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    NgbModule,
   ],
   providers: [
     ApiService,
