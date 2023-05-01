@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/alx9110/payment-calculator/ext"
 	"github.com/alx9110/payment-calculator/models"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -74,6 +76,10 @@ func main() {
 		secured.POST("/taxes/", controllers.CreateTax)
 		secured.DELETE("/taxes/:id", controllers.DeleteTax)
 	}
+	if !production {
+		r.Run() // listen and serve on 0.0.0.0:8080
+	} else {
+		log.Fatal(autotls.Run(r, "paycalc.ru"))
+	}
 
-	r.Run() // listen and serve on 0.0.0.0:8080
 }
