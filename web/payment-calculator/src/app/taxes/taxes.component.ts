@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, switchMap, tap } from 'rxjs';
-import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 
@@ -12,6 +12,7 @@ import { ApiService } from '../api.service';
 export class TaxesComponent implements OnInit {
 
   add_icon = faAdd;
+  calendar_icon = faCalendar;
   taxes: any;
   form: FormGroup;
   refresh$ = new Subject<void>();
@@ -25,6 +26,7 @@ export class TaxesComponent implements OnInit {
       cold_price: ['', Validators.required],
       energy_price: ['', Validators.required],
       drenage_price: ['', Validators.required],
+      date_of_add: ['', Validators.required],
     });
   }
 
@@ -37,7 +39,7 @@ export class TaxesComponent implements OnInit {
   postTax() {
     const val = this.form.value;
     if (val.hot_price && val.cold_price && val.energy_price) {
-      this.apiService.createTax(val.hot_price, val.cold_price, val.energy_price, val.drenage_price).pipe(tap(() => this.refresh$.next())).subscribe()
+      this.apiService.createTax(val.hot_price, val.cold_price, val.energy_price, val.drenage_price, val.date_of_add).pipe(tap(() => this.refresh$.next())).subscribe()
     }
   }
 

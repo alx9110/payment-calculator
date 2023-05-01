@@ -57,10 +57,17 @@
           <span class="input-group-text" id="drenage">Дренаж (Стоимость куб/м)</span>
           <input formControlName="drenage_price" type="number" [placeholder]="123.456" class="form-control" placeholder="" aria-label="drenage">
         </div>
+        <hr/>
+        <h5>Дата внесения показаний</h5>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="drenage">Дата</span>
+          <input formControlName="date_of_add" type="string" placeholder="yyyy-mm-dd" class="form-control" ngbDatepicker #d="ngbDatepicker">
+          <button class="btn" (click)="d.toggle()" type="button"><fa-icon [icon]="calendar_icon"></fa-icon></button>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" (click)="postTax()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" (click)="postTax()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Сохранить изменения</button>
       </div>
     </div>
   </div>
