@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -10,7 +9,6 @@ import (
 	"github.com/alx9110/payment-calculator/ext"
 	"github.com/alx9110/payment-calculator/models"
 	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -41,7 +39,7 @@ func main() {
 			fmt.Sprintf("http://localhost:%s", port),
 			fmt.Sprintf("http://0.0.0.0:%s", port),
 			fmt.Sprintf("http://127.0.0.1:%s", port),
-			fmt.Sprintf("http://pay-calc.ru:%s", port),
+			fmt.Sprintf("https://pay-calc.ru:%s", port),
 		},
 		AllowMethods:     []string{"PUT", "PATCH", "POST", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "Cache-Control"},
@@ -79,7 +77,7 @@ func main() {
 	if !production {
 		r.Run() // listen and serve on 0.0.0.0:8080
 	} else {
-		log.Fatal(autotls.Run(r, "paycalc.ru"))
+		r.RunTLS(":8080", "/etc/ssl/certs/certificate_full_chain.pem", "/etc/ssl/certs/private_key.pem")
 	}
 
 }

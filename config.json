@@ -1,6 +1,6 @@
 {
   "PRODUCTION": {
-    "port": "80",
+    "port": "443",
     "connection_string": "/var/payment-calculator/payment-calculator.db"
   },
   "DEVELOPMENT": {
