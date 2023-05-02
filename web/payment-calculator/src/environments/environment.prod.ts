@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://pay-calc.ru'
+  apiUrl: 'https://pay-calc.ru'
 };
