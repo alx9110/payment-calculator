@@ -1,6 +1,8 @@
 # payment-calculator
 Calculator of payment for housing services.
 
+[![Build Status](http://51.250.69.53/badge/e6cf3c1b?branch=main)](http://51.250.69.53/repos/13)
+
 ## API Examples
 ### Taxes
 ```
