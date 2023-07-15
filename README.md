@@ -51,3 +51,5 @@ go build ./
 ```
 sudo docker run -v /home/<user name>:/var/payment-calculator/ -d -p 80:8080 payment-calculator
 ```
+
+## Abstruse CI
