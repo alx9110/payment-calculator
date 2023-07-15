@@ -6,5 +6,10 @@ before_install:
 install:
   - apt-get install -y docker docker.io
 
+before_script:
+  - docker login --username oauth --password ${YC_TOKEN} cr.yandex
+
 script:
-  - docker info
+  - docker build -t payment-calculator ./
+  - docker tag payment-calculator cr.yandex/${YC_ID}/payment-calculator:latest
+  - docker push cr.yandex/${YC_ID}/payment-calculator:latest
