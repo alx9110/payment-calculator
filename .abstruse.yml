@@ -1,7 +1,10 @@
-image: golang:1.15
+image: ubuntu
 
-matrix:
-  - env: CMD=test
+before_install:
+  - apt-get update
+
+install:
+  - apt-get install -y docker docker.io
 
 script:
-  - if [[ "$CMD" ]]; then make $CMD; fi
+  - docker info
